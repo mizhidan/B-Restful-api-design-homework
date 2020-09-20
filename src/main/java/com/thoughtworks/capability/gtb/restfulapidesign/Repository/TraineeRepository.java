@@ -1,5 +1,6 @@
 package com.thoughtworks.capability.gtb.restfulapidesign.Repository;
 
+import com.thoughtworks.capability.gtb.restfulapidesign.Domain.GenderType;
 import com.thoughtworks.capability.gtb.restfulapidesign.Domain.Trainee;
 import com.thoughtworks.capability.gtb.restfulapidesign.Exception.TraineeException;
 
@@ -26,5 +27,21 @@ public class TraineeRepository {
             throw new TraineeException(traineeId);
         }
         traineeMap.remove(traineeId);
+    }
+
+    public List<Trainee> findAll() {
+        List<Trainee> traineeList = new ArrayList<>();
+        traineeMap.forEach((integer, trainee) -> traineeList.add(trainee));
+        return traineeList;
+    }
+
+    public List<Trainee> findTraineeByGender(GenderType genderType) {
+        List<Trainee> traineeList = new ArrayList<>();
+        traineeMap.forEach(((integer, trainee) -> {
+            if (trainee.getGender() == genderType) {
+                traineeList.add(trainee);
+            }
+        }));
+        return traineeList;
     }
 }

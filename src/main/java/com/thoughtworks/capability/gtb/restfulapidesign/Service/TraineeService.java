@@ -1,9 +1,12 @@
 package com.thoughtworks.capability.gtb.restfulapidesign.Service;
 
+import com.thoughtworks.capability.gtb.restfulapidesign.Domain.GenderType;
 import com.thoughtworks.capability.gtb.restfulapidesign.Domain.Trainee;
 import com.thoughtworks.capability.gtb.restfulapidesign.Exception.TraineeException;
 import com.thoughtworks.capability.gtb.restfulapidesign.Repository.TraineeRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class TraineeService {
@@ -21,5 +24,12 @@ public class TraineeService {
 
     public void deleteTrainee(int traineeId) throws TraineeException {
         traineeRepository.deleteById(traineeId);
+    }
+
+    public List<Trainee> getTraineeList(GenderType gender) {
+        if (gender == null) {
+            return traineeRepository.findAll();
+        }
+        return traineeRepository.findTraineeByGender(gender);
     }
 }
